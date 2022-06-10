@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2022 Digital Bazaar, Inc. All rights reserved.
  */
 const chai = require('chai');
 chai.should();
@@ -11,7 +11,7 @@ const {
 
 const contextUrl = constants.CONTEXT_URL_V1;
 
-describe('VC Status List Context', () => {
+describe('ODRL Context', () => {
   it('constants', async () => {
     expect(constants).to.exist;
     expect(CONTEXT_URL_V1).to.exist;
