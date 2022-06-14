@@ -1,62 +1,73 @@
+/*
+ * Copyright (c) 2021-2022 Digital Bazaar, Inc. All rights reserved.
+ */
 module.exports = function(config) {
-  const bundler = process.env.BUNDLER || 'webpack';
-  const frameworks = ['mocha', 'chai'];
-
-  const files = ['*.spec.js'];
-
-  // browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-  // browsers: ['ChromeHeadless', 'Chrome', 'Firefox', 'Safari'],
-  const browsers = ['ChromeHeadless'];
-
-  const reporters = ['mocha'];
-  const client = {
-    mocha: {
-      timeout: 10000, // 10 sec
-      reporter: 'html'
-      //delay: true
-    }
-  };
-
-  // main bundle preprocessors
-  const preprocessors = [];
-  preprocessors.push(bundler);
-  preprocessors.push('sourcemap');
-
-  return config.set({
-    frameworks,
-    files,
-    reporters,
+  config.set({
+    // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
+    bundler: process.env.BUNDLER || 'webpack',
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['mocha', 'chai', 'webpack'],
+
+    // list of files / patterns to load in the browser
+    files: ['*.spec.js'],
+
+    // list of files to exclude
+    exclude: [],
+
+    // preprocess matching files before serving them to the browser
+    // preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+      '*.spec.js': ['webpack', 'sourcemap'],
+    },
+
+    webpack: {
+      mode: 'development',
+      devtool: 'inline-source-map'
+    },
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    //reporters: ['progress'],
+    reporters: ['mocha'],
+
+    // web server port
     port: 9876,
+    // enable / disable colors in the output (reporters and logs)
     colors: true,
-    browsers,
-    client,
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR ||
     //   config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    singleRun: true,
-
     // enable / disable watching file and executing test whenever any
     // file changes
     autoWatch: false,
 
-    // preprocess matching files before serving them to the browser
-    // available preprocessors:
-    // https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      '*.spec.js': preprocessors,
-    },
+    // start these browsers
+    // browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    //browsers: ['ChromeHeadless', 'Chrome', 'Firefox', 'Safari'],
+    browsers: ['ChromeHeadless'],
 
-    webpack: {
-      devtool: 'inline-source-map',
-      mode: 'development',
-      node: {
-        Buffer: false,
-        crypto: false,
-        util: false
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the test and exits
+    singleRun: true,
+
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity,
+
+    // Mocha
+    client: {
+      mocha: {
+        // increase from default 2s
+        timeout: 10000,
+        reporter: 'html'
+        //delay: true
       }
     }
   });
