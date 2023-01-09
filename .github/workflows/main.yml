@@ -24,7 +24,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -41,7 +41,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
         bundler: [webpack]
     steps:
     - uses: actions/checkout@v2
