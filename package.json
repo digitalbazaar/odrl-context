@@ -60,6 +60,6 @@
     "test-node": "cross-env NODE_ENV=test mocha --preserve-symlinks test/*.spec.js"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }
