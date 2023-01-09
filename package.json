@@ -1,6 +1,6 @@
 {
   "name": "@digitalbazaar/odrl-context",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An Open Digital Rights Language Context.",
   "main": "js/index.js",
   "module": "./dist/context.esm.js",
